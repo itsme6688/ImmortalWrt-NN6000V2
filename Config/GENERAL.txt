@@ -7,8 +7,6 @@ CONFIG_PACKAGE_luci-app-openclash=y
 #参考FanchmWrt优化：DPI应用过滤
 CONFIG_PACKAGE_luci-app-oaf=y
 CONFIG_PACKAGE_kmod-oaf=y
-#广告过滤
-CONFIG_PACKAGE_luci-app-adguardhome=y
 #增加插件
 CONFIG_PACKAGE_luci-app-autoreboot=y
 CONFIG_PACKAGE_luci-app-gecoosac=y
