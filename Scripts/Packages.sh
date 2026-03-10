@@ -54,9 +54,14 @@ UPDATE_PACKAGE "kucat-config" "sirpdboy/luci-app-kucat-config" "master"
 # UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 # UPDATE_PACKAGE "momo" "nikkinikki-org/OpenWrt-momo" "main"
 # UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
-# UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
+UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
 UPDATE_PACKAGE "passwall" "Openwrt-Passwall/openwrt-passwall" "main" "pkg"
 UPDATE_PACKAGE "passwall2" "Openwrt-Passwall/openwrt-passwall2" "main" "pkg"
+
+#参考FanchmWrt优化：DPI应用过滤（OpenAppFilter）
+UPDATE_PACKAGE "open-app-filter" "destan19/OpenAppFilter" "master" "" "luci-app-appfilter oaf"
+#广告过滤
+UPDATE_PACKAGE "adguardhome" "rufengsuixing/luci-app-adguardhome" "master"
 
 UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
 
