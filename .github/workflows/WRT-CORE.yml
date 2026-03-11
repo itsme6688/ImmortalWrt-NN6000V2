@@ -228,24 +228,24 @@ jobs:
           tag_name: ${{env.WRT_CONFIG}}-${{env.WRT_INFO}}-${{env.WRT_BRANCH}}-${{env.WRT_DATE}}
           files: ./wrt/upload/*.*
           body: |
-            这是个平台固件包，内含多个设备！
-            请注意选择你需要的设备固件！
-            不要问，刷就完事了！
+            ## NN6000V2 定制固件
 
-            全系带开源硬件加速，别问了！
+            全系 NSS 硬件加速 | OpenClash + OpenAppFilter
 
-            源码：${{env.WRT_REPO}}
-            分支：${{env.WRT_BRANCH}}
-            提交：${{env.WRT_HASH}}
+            ### 固件信息
+            - 源码：${{env.WRT_REPO}}
+            - 分支：${{env.WRT_BRANCH}} (提交：${{env.WRT_HASH}})
+            - 配置：${{env.WRT_CONFIG}}
+            - 平台：${{env.WRT_TARGET}}
+            - 内核：${{env.WRT_KVER}}
 
-            配置：${{env.WRT_CONFIG}}
-            平台：${{env.WRT_TARGET}}
+            ### 登录信息
+            - 地址：${{env.WRT_IP}}
+            - 密码：${{env.WRT_PW}}（空密码）
+            - WiFi：${{env.WRT_SSID}} / ${{env.WRT_WORD}}
 
-            登录地址：${{env.WRT_IP}}
-            登录密码：${{env.WRT_PW}}
+            ### U-Boot 刷入
+            下载 `factory` 版本固件，进入 U-Boot 界面上传刷入
 
-            WIFI名称：${{env.WRT_SSID}}
-            WIFI密码：${{env.WRT_WORD}}
-
-            内核版本：${{env.WRT_KVER}}
-            插件列表：${{env.WRT_LIST}}
+            ### 插件列表
+            ${{env.WRT_LIST}}
