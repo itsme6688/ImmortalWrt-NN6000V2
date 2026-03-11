@@ -27,6 +27,12 @@ CONFIG_PACKAGE_luci-app-filebrowser=y
 CONFIG_PACKAGE_luci-app-easymesh=y
 CONFIG_PACKAGE_ttyd=y
 CONFIG_PACKAGE_luci-app-quickfile=y
+#渗透测试/抓包工具
+CONFIG_PACKAGE_tcpdump=y
+CONFIG_PACKAGE_nmap-full=y
+CONFIG_PACKAGE_iftop=y
+CONFIG_PACKAGE_nethogs=y
+CONFIG_PACKAGE_ngrep=y
 
 #删除插件
 CONFIG_PACKAGE_luci-app-attendedsysupgrade=n
