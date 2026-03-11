@@ -1,42 +1,62 @@
-# OpenWRT-CI
+# NN6000V2 定制固件
 
-官方版：
+基于 [ImmortalWrt](https://github.com/guorong697/immortalwrt) 编译的**连我科技 NN6000 V2** 定制固件，全系 NSS 硬件加速。
 
-https://github.com/immortalwrt/immortalwrt.git
+## 📥 下载固件
 
-高通版：
+到 [Releases](https://github.com/itsme6688/ImmortalWrt-NN6000V2/releases) 下载最新固件，选择 `factory` 版本通过 U-Boot 刷入。
 
-https://github.com/VIKINGYFY/immortalwrt.git
+## 📋 固件信息
 
-# U-BOOT
+| 项目 | 值 |
+|------|-----|
+| 平台 | Qualcomm IPQ6000 (qualcommax/ipq60xx) |
+| 登录地址 | `192.168.10.1` |
+| 登录密码 | 无（空密码） |
+| WiFi 名称 | `OWRT` |
+| WiFi 密码 | `12345678` |
+| 内核版本 | 6.12.x |
 
-高通版：
+## 🔌 插件列表
 
-https://github.com/chenxin527/uboot-ipq60xx-emmc-build
+### 科学上网
+- **OpenClash** — Clash 规则分流代理
+- **Passwall / Passwall2** — 多协议代理
 
-https://github.com/chenxin527/uboot-ipq60xx-nand-build
+### 安全过滤
+- **OpenAppFilter (OAF)** — DPI 深度包检测 + 应用过滤
 
-https://github.com/chenxin527/uboot-ipq60xx-nor-build
+### 组网
+- Tailscale / ZeroTier / EasyTier / EasyMesh / VNT
 
-联发科版：
+### 文件下载
+- Samba4 / FileBrowser / QuickFile / qBittorrent
 
-https://drive.wrt.moe/uboot/mediatek
+### 监控工具
+- Netdata / ttyd / NetSpeedTest / CoreMark
 
-# 固件简要说明
+### 系统管理
+- AutoReboot / 分区扩容 / DiskMan / FanControl / WOL Plus
 
-固件每天早上4点自动编译。
+### 网络功能
+- DDNS-Go / UPnP / IPTV Helper / MosDNS
 
-固件信息里的时间为编译开始的时间，方便核对上游源码提交时间。
+### 硬件加速
+- **NSS 硬件加速** + SQM-NSS 智能队列
 
-MEDIATEK系列、QUALCOMMAX系列、ROCKCHIP系列、X86系列。
+### 主题
+- Argon（默认）/ Aurora / Kucat
 
-# 目录简要说明
+## 🔧 自定义编译
 
-workflows——自定义CI配置
+1. Fork 本仓库
+2. 修改 `Config/GENERAL.txt`（插件开关）和 `Scripts/Packages.sh`（第三方插件源）
+3. 到 Actions → NN6000V2 → Run workflow 触发编译
+4. 编译完成后到 Releases 下载固件
 
-Scripts——自定义脚本
+## 🙏 致谢
 
-Config——自定义配置
-
-#
-[![Stargazers over time](https://starchart.cc/VIKINGYFY/OpenWRT-CI.svg?variant=adaptive)](https://starchart.cc/VIKINGYFY/OpenWRT-CI)
+- [guorong697/ImmortalWrt-NN6000V2](https://github.com/guorong697/ImmortalWrt-NN6000V2) — 原始仓库
+- [VIKINGYFY/immortalwrt](https://github.com/VIKINGYFY/immortalwrt) — 高通版 ImmortalWrt
+- [vernesong/OpenClash](https://github.com/vernesong/OpenClash) — OpenClash
+- [destan19/OpenAppFilter](https://github.com/destan19/OpenAppFilter) — 应用过滤
