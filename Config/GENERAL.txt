@@ -33,6 +33,22 @@ CONFIG_PACKAGE_nmap-full=y
 CONFIG_PACKAGE_iftop=y
 CONFIG_PACKAGE_nethogs=y
 CONFIG_PACKAGE_ngrep=y
+CONFIG_PACKAGE_mtr-json=y
+CONFIG_PACKAGE_bind-dig=y
+CONFIG_PACKAGE_whois=y
+CONFIG_PACKAGE_socat=y
+CONFIG_PACKAGE_netcat=y
+CONFIG_PACKAGE_arping=y
+CONFIG_PACKAGE_arp-scan=y
+#网络管理增强
+CONFIG_PACKAGE_luci-app-nlbwmon=y
+CONFIG_PACKAGE_luci-app-watchcat=y
+CONFIG_PACKAGE_bmon=y
+#系统工具增强
+CONFIG_PACKAGE_nano-full=y
+CONFIG_PACKAGE_screen=y
+CONFIG_PACKAGE_openssh-client=y
+CONFIG_PACKAGE_wget-ssl=y
 
 #删除插件
 CONFIG_PACKAGE_luci-app-attendedsysupgrade=n
