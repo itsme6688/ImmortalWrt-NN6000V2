@@ -107,3 +107,66 @@ if [ -d *"luci-app-netspeedtest"* ]; then
 
 	cd $PKG_PATH && echo "netspeedtest has been fixed!"
 fi
+
+#优化LuCI页面加载速度 + 修复Netdata HTTPS显示
+DEFAULTS_DIR="$GITHUB_WORKSPACE/wrt/package/base-files/files/etc/uci-defaults"
+mkdir -p "$DEFAULTS_DIR"
+cat > "$DEFAULTS_DIR/99-luci-performance" << 'PERFEOF'
+#!/bin/sh
+
+# === uwsgi 优化：解决 LuCI 页面加载慢（TTFB 10s+）的问题 ===
+UWSGI_EMPEROR="/etc/uwsgi/emperor.ini"
+UWSGI_VASSAL="/etc/uwsgi/vassals/luci-webui.ini"
+
+if [ -f "$UWSGI_EMPEROR" ]; then
+	sed -i 's/^vassal-set = die-on-idle=true/; vassal-set = die-on-idle=true/' "$UWSGI_EMPEROR"
+fi
+
+if [ -f "$UWSGI_VASSAL" ]; then
+	sed -i 's/^cheap = true/; cheap = true/' "$UWSGI_VASSAL"
+	sed -i 's/^processes = 3/processes = 4/' "$UWSGI_VASSAL"
+	sed -i 's/^cheaper = 1/cheaper = 2/' "$UWSGI_VASSAL"
+	sed -i 's/^cheaper-initial = 1/cheaper-initial = 2/' "$UWSGI_VASSAL"
+	sed -i 's/^idle = 360/idle = 7200/' "$UWSGI_VASSAL"
+	grep -q 'ignore-sigpipe' "$UWSGI_VASSAL" || \
+		sed -i '/^thunder-lock/a ignore-sigpipe = true\nignore-write-errors = true' "$UWSGI_VASSAL"
+fi
+
+# === Nginx 优化：静态资源缓存 + Netdata 反代 + ubus 并发 ===
+LUCI_LOC="/etc/nginx/conf.d/luci.locations"
+if [ -f "$LUCI_LOC" ]; then
+	# 静态资源缓存 7 天
+	if ! grep -q 'expires 7d' "$LUCI_LOC"; then
+		sed -i '/location \/luci-static/,/}/ {
+			/error_log/a\		expires 7d;\n\t\tadd_header Cache-Control "public, immutable";
+		}' "$LUCI_LOC"
+	fi
+	# ubus 并发 2 -> 6
+	sed -i 's/ubus_parallel_req 2/ubus_parallel_req 6/' "$LUCI_LOC"
+	# Netdata 反向代理（解决 HTTPS 页面嵌入 HTTP iframe 被拦截的问题）
+	if ! grep -q '/netdata/' "$LUCI_LOC"; then
+		cat >> "$LUCI_LOC" << 'NDEOF'
+
+location /netdata/ {
+        proxy_pass http://127.0.0.1:19999/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_buffering off;
+}
+NDEOF
+	fi
+fi
+
+# === 修复 Netdata LuCI 视图：iframe 改用反代相对路径 ===
+ND_JS="/www/luci-static/resources/view/netdata.js"
+if [ -f "$ND_JS" ]; then
+	sed -i "s|'http://'+window.location.hostname+':19999'|'/netdata/'|" "$ND_JS"
+fi
+
+exit 0
+PERFEOF
+chmod +x "$DEFAULTS_DIR/99-luci-performance"
+
+cd $PKG_PATH && echo "luci-performance optimization has been added!"

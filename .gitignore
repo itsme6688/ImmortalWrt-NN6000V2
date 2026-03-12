@@ -1,0 +1,27 @@
+# Cloudflare 优选 IP 脚本（含敏感配置）
+Scripts/cf-*
+Scripts/ip-cn.txt
+Scripts/README-CF-*.md
+docs/
+
+# Playwright MCP (browser automation temp)
+.playwright-mcp/
+
+# Environment files with secrets
+*.env
+.cf-dns.env
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+*.tmp
+*.log

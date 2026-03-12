@@ -38,6 +38,10 @@
 ### 系统管理
 - AutoReboot / 分区扩容 / DiskMan / FanControl / WOL Plus
 
+### 固件内置优化
+- **LuCI 加载加速** — uwsgi 常驻进程 + 静态资源缓存 + ubus 并发提升（TTFB 10s → 0.1s）
+- **Netdata 显示修复** — Nginx 反代解决 HTTPS 下 iframe 混合内容拦截
+
 ### 网络功能
 - DDNS-Go / UPnP / IPTV Helper / MosDNS
 
